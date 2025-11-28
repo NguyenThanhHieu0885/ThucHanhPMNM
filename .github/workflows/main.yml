@@ -1,0 +1,37 @@
+name: Deploy HTML to Somee
+# Tên của Workflow, sẽ hiện trong tab Actions
+
+on:
+  push:
+    branches:
+      - main
+    # Sự kiện kích hoạt: Khi có code mới được PUSH vào nhánh MAIN
+    # (Nếu nhánh chính của bạn tên là 'master', hãy đổi 'main' thành 'master')
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    # Bước 1: Lấy code mới nhất từ kho chứa về máy ảo của GitHub
+    - name: Get latest code
+      uses: actions/checkout@v4
+    
+    # Bước 2: Sử dụng FTP Action để đẩy file lên Somee
+    - name: Sync files to Somee via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASS }}
+        
+        # Quan trọng: Đường dẫn thư mục trên Somee.
+        # Nếu web bạn là 'mysite.somee.com', thư mục thường là /www.mysite.somee.com/
+        # Nếu để trống, nó sẽ upload vào thư mục gốc của tài khoản FTP.
+        server-dir: /
+        
+        # Chỉ định file cần loại bỏ không upload (ví dụ file cấu hình git)
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/.github/**
