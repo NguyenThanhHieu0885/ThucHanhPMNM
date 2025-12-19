@@ -1,4 +1,4 @@
 <?php
 phpinfo();
-ok
+echo "ok:";
 ?>
