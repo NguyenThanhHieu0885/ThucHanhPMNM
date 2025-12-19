@@ -28,7 +28,7 @@ jobs:
         # Quan trọng: Đường dẫn thư mục trên Somee.
         # Nếu web bạn là 'mysite.somee.com', thư mục thường là /www.mysite.somee.com/
         # Nếu để trống, nó sẽ upload vào thư mục gốc của tài khoản FTP.
-        server-dir: /www.thanhhieu.somee.com/
+        server-dir: /www.thanhhieu.somee.com/wwwroot/
         
         # Chỉ định file cần loại bỏ không upload (ví dụ file cấu hình git)
         exclude: |
